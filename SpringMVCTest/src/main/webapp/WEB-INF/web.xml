@@ -16,11 +16,12 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <!--映射 *.mvc-->
+    <!--映射-->
     <servlet-mapping>
         <servlet-name>HelloWeb</servlet-name>
         <url-pattern>*.mvc</url-pattern>
-        <url-pattern>*.do</url-pattern>
+        <!--配置多个映射-->
+        <!--<url-pattern>*.do</url-pattern>-->
     </servlet-mapping>
 
     <!--<servlet-mapping>-->
