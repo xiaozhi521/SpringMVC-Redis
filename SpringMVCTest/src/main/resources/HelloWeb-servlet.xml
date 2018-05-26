@@ -7,7 +7,7 @@
    http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 配置扫描的包 -->
-    <context:component-scan base-package="com.controller" />
+    <context:component-scan base-package="com.controller.annotation,com.controller.nonannotation"/>
 
     <!-- 注册HandlerMapper、HandlerAdapter两个映射类 -->
     <mvc:annotation-driven />
@@ -26,16 +26,21 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
-
-    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
-
-    <!-- 访问静态资源 -->
-    <mvc:default-servlet-handler />
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
+
+    <!--<mvc:resource ...../>标记来映射静态页面。映射属性必须是指定http请求的URL模式的Ant模式。
+    location属性必须指定一个或多个有效的资源目录位置，其中包含静态页面，包括图片，样式表，JavaScript和其他静态内容。
+    可以使用逗号分隔的值列表指定多个资源位置。-->
+    <!--<mvc:resources mapping="/pages/**" location="**" />-->
+
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
+
+    <!-- 访问静态资源 -->
+    <!--<mvc:default-servlet-handler />-->
+
 
 </beans>

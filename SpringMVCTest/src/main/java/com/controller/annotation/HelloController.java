@@ -1,19 +1,16 @@
-package com.controller;
+package com.controller.annotation;
 
 
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Result;
 import com.util.ResultUtil;
-import jdk.nashorn.internal.runtime.JSONFunctions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -25,6 +22,16 @@ public class HelloController {
         model.addAttribute("message", "Hello Spring MVC Framework!");
         model.addAttribute("ee", "12121");
         return "hello";
+    }
+
+    /**
+     *  此方法废弃
+     * @return
+     */
+    @RequestMapping(value = "/staticPage.mvc", method = RequestMethod.GET)
+    public String redirect() {
+
+        return "redirect:/pages/final.html";
     }
 
     @RequestMapping("/getObj.mvc")
