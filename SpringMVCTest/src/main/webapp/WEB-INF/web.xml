@@ -4,25 +4,7 @@
 
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
-    <servlet>
-        <servlet-name>HelloWeb</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
-        <!--读取配置文件-->
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>classpath*:HelloWeb-servlet.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <!--映射-->
-    <servlet-mapping>
-        <servlet-name>HelloWeb</servlet-name>
-        <url-pattern>*.mvc</url-pattern>
-        <!--配置多个映射-->
-        <!--<url-pattern>*.do</url-pattern>-->
-    </servlet-mapping>
+
     <!--SpringMvc参数传递中乱码问题-->
     <filter>
         <filter-name>springUtf8Encoding</filter-name>
@@ -42,19 +24,38 @@
     </filter-mapping>
     <!--SpringMVC 静态页面-->
     <!--<servlet>-->
-        <!--<servlet-name>StaticPages</servlet-name>-->
-        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
-        <!--<load-on-startup>1</load-on-startup>-->
+    <!--<servlet-name>StaticPages</servlet-name>-->
+    <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+    <!--<load-on-startup>1</load-on-startup>-->
     <!--</servlet>-->
     <!--<servlet-mapping>-->
-        <!--<servlet-name>StaticPages</servlet-name>-->
-        <!--<url-pattern>/</url-pattern>-->
+    <!--<servlet-name>StaticPages</servlet-name>-->
+    <!--<url-pattern>/</url-pattern>-->
     <!--</servlet-mapping>-->
-
     <listener>
         <listener-class>
             org.springframework.web.context.request.RequestContextListener
         </listener-class>
     </listener>
+
+    <servlet>
+        <servlet-name>HelloWeb</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <!--读取配置文件-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath*:HelloWeb-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--映射-->
+    <servlet-mapping>
+        <servlet-name>HelloWeb</servlet-name>
+        <url-pattern>*.mvc</url-pattern>
+        <!--配置多个映射-->
+        <!--<url-pattern>*.do</url-pattern>-->
+    </servlet-mapping>
 
 </web-app>
