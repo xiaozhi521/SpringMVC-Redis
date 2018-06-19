@@ -28,6 +28,9 @@
             student.setName("qingFeng");
             return new ModelAndView("/student/modelAndView", "model", student);
         }
+        请求路径: localhost:8099/student.mvc
+        返回的jsp是： /WEB-INF/jsp/student/modelAndView.jsp
+
     第三种：不使用xml 配置文件，使用 forward: 或者 redirect: 为前缀拼接字符串
         如果以下代码想要和第一种效果相同 就需要返回   forward:/WEB-INF/jsp/hello.jsp  这样一个字符串
         @RequestMapping("/hello.mvc")
