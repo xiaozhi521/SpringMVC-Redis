@@ -37,6 +37,7 @@
     可以使用逗号分隔的值列表指定多个资源位置。-->
     <!--<mvc:resources mapping="/pages/**" location="**" />-->
 
+    <!--spring mvc aop对controller切面编程无效解决，配置使Spring采用CGLIB代理-->
     <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
 
     <!-- 访问静态资源 -->
