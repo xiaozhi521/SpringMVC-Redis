@@ -6,6 +6,8 @@
    http://www.springframework.org/schema/context
    http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!--Redis配置-->
+    <!--JedisPoolConfig - 连接池配置-->
    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
        <!--最大空闲连接数-->
        <property name="maxIdle" value="50"/>
@@ -13,13 +15,30 @@
        <property name="maxTotal" value="100"/>
        <property name="maxWaitMillis" value="20000"/>
    </bean>
+
+    <!--配置序列化器-->
+    <!--通用的使用Json2.jar 的包，将 redis 对象的序列化器-->
+    <!--<bean id="genericJackson2JsonRedisSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>-->
+    <!--通过 Jackson2.jar 包提供的序列化进行转换-->
+    <!--<bean id="jackson2JsonRedisSerializer" class="org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer<>"/>-->
+    <!--使用JDK 序列化器进行转化-->
+    <bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+    <!--使用 字符串 序列化器进行转化-->
     <bean id="stringRediSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+    <!--通过通用的字符串序列化器进行转化-->
+    <!--<bean id="genericToStringSerializer" class="org.springframework.data.redis.serializer.GenericToStringSerializer"/>-->
+
+    <!--
+        Spring 所提供的的连接工厂，在 Data Redis 方案中他提供了4中工厂模型
+        JredisConnectionFactory, LettuceConnectionFactory, SrpConnectionFactory, JedisConnectionFactory
+    -->
     <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="127.0.0.1" />
         <property name="port" value="6379"/>
         <property name="password" value="qwertyuiop@123"/>
         <property name="poolConfig" ref="poolConfig"/>
     </bean>
+
     <!--配置spring关于redis字符串的运行环境-->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="connectionFactory"/>

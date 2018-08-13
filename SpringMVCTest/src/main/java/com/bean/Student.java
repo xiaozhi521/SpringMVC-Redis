@@ -1,6 +1,8 @@
 package com.bean;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private Integer age;
     private String name;
     private Integer id;
@@ -24,5 +26,14 @@ public class Student {
     }
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                '}';
     }
 }
