@@ -10,11 +10,11 @@ public class RedisJava {
     }
 
     /**
-     *  使用redis 连接池
+     *  使用redis 连接池  testRedisPoolPerformance
      *  redis.clients.jedis.JedisPool
      *  redis.clients.jedis.JedisPoolConfig
      */
-    public static void testRedisPoolPerformance(){
+    public static Jedis getRedis(){
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         //设置最大的空闲数
         jedisPoolConfig.setMaxIdle(50);
@@ -26,6 +26,7 @@ public class RedisJava {
         Jedis jedis = jedisPool.getResource();
         //需要密码
         jedis.auth("qwertyuiop@123");
+        return jedis;
     }
     /**
      *  redis 性能测试 -- 简单的连接测试
