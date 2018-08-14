@@ -58,4 +58,19 @@
         <!--<url-pattern>*.do</url-pattern>-->
     </servlet-mapping>
 
+    <!-- 错误页面转向  -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/index.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/index.jsp</location>
+    </error-page>
+    <!-- 欢迎页面 -->
+    <welcome-file-list>
+        <welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
+
 </web-app>
