@@ -6,6 +6,8 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.Scanner;
+
 /**
  *  消息发布订阅
  */
@@ -39,9 +41,16 @@ public class RedisMessageListener implements MessageListener {
     }
 
     public static void main(String[] args) {
+        System.out.print("请输入:");
+        String showInfo=new Scanner(System.in).next();
+        System.out.println(showInfo);
+
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         RedisTemplate redisTemplate =  applicationContext.getBean(RedisTemplate.class);
         String channel = "chat";
-        redisTemplate.convertAndSend(channel,"I'm lazy!!!");
+        redisTemplate.convertAndSend(channel,showInfo);
+
+
+
     }
 }
