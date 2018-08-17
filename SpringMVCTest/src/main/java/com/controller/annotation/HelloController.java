@@ -30,7 +30,6 @@ public class HelloController {
      */
     @RequestMapping(value = "/staticPage.mvc", method = RequestMethod.GET)
     public String redirect() {
-
         return "redirect:/pages/final.html";
     }
 
