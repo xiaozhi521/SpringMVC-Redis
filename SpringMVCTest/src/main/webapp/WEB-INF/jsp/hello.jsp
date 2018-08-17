@@ -20,6 +20,12 @@
 <button onclick="addStudent(2)">增加学生信息(继承 baseController 类方式)</button>
 
 <button onclick="student()">模拟测试ModelAndView</button>
+<br/>
+<br/>
+<a href="getMap.mvc" target="_blank">JSON数据返回测试</a>
+<h2>SpringMVC 文件上传</h2>
+<a href="/SpringmvcFile/addFile.mvc">文件上传</a>
+
 
 <form:form method="GET" style="display:none;" action="/staticPage.mvc">
     <table>
