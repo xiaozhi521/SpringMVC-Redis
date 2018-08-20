@@ -2,14 +2,15 @@ package com.controller.file;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import java.io.*;
 import java.util.Date;
 import java.util.Iterator;
@@ -96,5 +97,56 @@ public class FileUpload {
         long endTime = System.currentTimeMillis();
         System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
         return "file/success";
+    }
+
+    /**
+     *  使用 MultipartFile 上传文件
+     * @param file
+     * @return
+     */
+    @RequestMapping("/uploadMultipartFile.mvc")
+    public ModelAndView uploadMultipartFile(MultipartFile file){
+        //定义json 视图
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("file/success");
+        //获取原文件名
+        String fileName = file.getOriginalFilename();
+        file.getContentType();
+        //目标文件
+        String path = "E:/" + new Date().getTime() + file.getOriginalFilename();
+        File dest = new File(path);
+        //保存文件
+        try {
+            file.transferTo(dest);
+
+            System.out.println(dest.getPath());
+            modelAndView.addObject("success",true);
+            modelAndView.addObject("msg","上传文件成功");
+        } catch (IOException e) {
+            e.printStackTrace();
+            modelAndView.addObject("success",false);
+            modelAndView.addObject("msg","上传文件失败");
+        }
+        return modelAndView;
+    }
+
+    /**
+     *  使用 part
+     */
+    @RequestMapping("/uploadPart.mvc")
+    public ModelAndView uploadPart(Part file) throws IOException {
+        //定义json 视图
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("file/success");
+        //获取原文件名
+
+        String fileName = file.getName();
+        file.getContentType();
+        //目标文件
+        String path = "E:/" + new Date().getTime() + file.getName();
+        File dest = new File(path);
+        //保存文件
+        file.write(path);
+        return modelAndView;
     }
 }

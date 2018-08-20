@@ -24,5 +24,16 @@
     <input type="file" name="file">
     <input type="submit" value="upload"/>
 </form>
+
+<form name="Form2" action="/SpringmvcFile/uploadMultipartFile.mvc" method="post"  enctype="multipart/form-data">
+    <h1>采用multipart提供的file.transfer方法上传文件 2 </h1>
+    <input type="file" name="file">
+    <input type="submit" value="upload"/>
+</form>
+<form name="Form2" action="/SpringmvcFile/uploadPart.mvc" method="post"  enctype="multipart/form-data">
+    <h1>采用multipart提供的 Part 方法上传文件 2 </h1>
+    <input type="file" name="file">
+    <input type="submit" value="upload"/>
+</form>
 </body>
 </html>
