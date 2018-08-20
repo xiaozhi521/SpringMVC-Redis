@@ -1,0 +1,79 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--Redis配置-->
+    <!--JedisPoolConfig - 连接池配置-->
+   <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+       <!--最大空闲连接数-->
+       <property name="maxIdle" value="50"/>
+       <!--最大连接数-->
+       <property name="maxTotal" value="100"/>
+       <property name="maxWaitMillis" value="20000"/>
+   </bean>
+
+    <!--配置序列化器-->
+    <!--通用的使用Json2.jar 的包，将 redis 对象的序列化器-->
+    <!--<bean id="genericJackson2JsonRedisSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>-->
+    <!--通过 Jackson2.jar 包提供的序列化进行转换-->
+    <!--<bean id="jackson2JsonRedisSerializer" class="org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer<>"/>-->
+    <!--使用JDK 序列化器进行转化-->
+    <bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+    <!--使用 字符串 序列化器进行转化-->
+    <bean id="stringRediSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+    <!--通过通用的字符串序列化器进行转化-->
+    <!--<bean id="genericToStringSerializer" class="org.springframework.data.redis.serializer.GenericToStringSerializer"/>-->
+
+    <!--
+        Spring 所提供的的连接工厂，在 Data Redis 方案中他提供了4中工厂模型
+        JredisConnectionFactory, LettuceConnectionFactory, SrpConnectionFactory, JedisConnectionFactory
+    -->
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="127.0.0.1" />
+        <property name="port" value="6379"/>
+        <property name="password" value="qwertyuiop@123"/>
+        <property name="poolConfig" ref="poolConfig"/>
+    </bean>
+
+    <!--配置发布订阅监听类-->
+    <bean id="redisMsgListener" class="com.redis.spring.pub_sub.RedisMessageListener">
+        <property name="redisTemplate" ref="redisTemplate"/>
+    </bean>
+    <!--配置监听容器-->
+    <bean id="topicContainer" class="org.springframework.data.redis.listener.RedisMessageListenerContainer" destroy-method="destroy">
+        <!--Redis 连接工厂-->
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!--连接池，这里只要线程池生存，才能继续监听-->
+        <property name="taskExecutor">
+            <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+                <property name="poolSize" value="3"/>
+            </bean>
+        </property>
+        <!--消息监听Map-->
+        <property name="messageListeners">
+            <map>
+                <!--配置监听者，key-ref 和 bean 定义一致-->
+                <entry key-ref="redisMsgListener">
+                    <!--监听类-->
+                    <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                        <constructor-arg value="chat"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+    <!--配置spring关于redis字符串的运行环境-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!--修改默认的序列化器为字符串序列化-->
+        <property name="defaultSerializer" ref="stringRediSerializer"/>
+        <property name="keySerializer" ref="stringRediSerializer"/>
+        <property name="valueSerializer" ref="stringRediSerializer"/>
+    </bean>
+</beans>
