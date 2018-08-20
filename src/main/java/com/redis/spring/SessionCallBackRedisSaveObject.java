@@ -13,6 +13,9 @@ import org.springframework.data.redis.core.SessionCallback;
  *  RedisCallback 是比较底层的封装，其使用不是很友好所以更多的时候会使用 SessionCallback 这个接口
  *  通过  SessionCallback 接口，就可以把多个命令放入到同一个 Redis 连接中去执行。
  *  它解决了 “RedisTemplate 是操作同一个对 Redis 的连接”问题
+ *
+ *  <property name="valueSerializer" ref="stringRediSerializer"/> 需要改成
+ *      <property name="valueSerializer" ref="jdkSerializationRedisSerializer"/>
  */
 public class SessionCallBackRedisSaveObject {
     public static void main(String[] args) {
