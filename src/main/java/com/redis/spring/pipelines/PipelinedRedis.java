@@ -19,6 +19,7 @@ public class PipelinedRedis {
                     int j = i + 1;
                     ops.boundValueOps("pipeline_key_" + j).set("pipeline_value_" + j);
                     ops.boundValueOps("pipeline_key_" + j).get();
+                    ops.boundValueOps("pipeline_key_" + j).persist();
                 }
                 return null;
             }

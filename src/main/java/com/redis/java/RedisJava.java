@@ -47,6 +47,8 @@ public class RedisJava {
                 }
                 i++;
                 jedis.set("test" + i, i + "");
+                //设置超时时间
+                jedis.pexpire("test" + i,10000L);
             }
         }finally {
             jedis.close();
