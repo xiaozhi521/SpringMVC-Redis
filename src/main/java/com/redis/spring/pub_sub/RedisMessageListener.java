@@ -47,7 +47,7 @@ public class RedisMessageListener implements MessageListener {
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         RedisTemplate redisTemplate =  applicationContext.getBean(RedisTemplate.class);
-        String channel = "chat";
+        String channel = "chat1";
         redisTemplate.convertAndSend(channel,showInfo);
 
 

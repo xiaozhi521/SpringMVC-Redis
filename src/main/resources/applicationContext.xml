@@ -63,6 +63,13 @@
                         <constructor-arg value="chat"/>
                     </bean>
                 </entry>
+                <!-- 配置多个监听者-->
+                <entry key-ref="redisMsgListener">
+                    <!--监听类-->
+                    <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                        <constructor-arg value="chat1"/>
+                    </bean>
+                </entry>
             </map>
         </property>
     </bean>
