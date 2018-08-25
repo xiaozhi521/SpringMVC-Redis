@@ -44,6 +44,8 @@
 ### auto-aof-rewrite-min-size 64mb
     - 指定触发
 ### aof-load-truncated yes
+    - redis 在恢复时会忽略最后一条可能存在问题的指令，默认为yes。即在AOF写入时，可能存在指令写错的问题（突然断电，写了一半）
+    这种情况下 yes 会log并继续，而 no 直接恢复失败。
 
 
 
