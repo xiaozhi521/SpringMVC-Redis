@@ -40,6 +40,21 @@
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
 
+    <mvc:interceptors>
+        <!-- 配置自定义的拦截器 -->
+        <bean class="com.interceptor.FirstInterceptor"></bean>
+        <!-- 配置拦截器(不)作用的路径 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/*.mvc"/>
+            <mvc:mapping path="/**/*.mvc"/>
+            <mvc:exclude-mapping path="/hello.mvc"/>
+            <mvc:exclude-mapping path="/login/login.mvc"/>
+            <mvc:exclude-mapping path="/login/toLogin.mvc"/>
+            <bean class="com.interceptor.SecondInterceptor"></bean>
+        </mvc:interceptor>
+        <!-- 配置 LocaleChanceInterceptor -->
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+    </mvc:interceptors>
 
     <!--<mvc:resource ...../>标记来映射静态页面。映射属性必须是指定http请求的URL模式的Ant模式。
     location属性必须指定一个或多个有效的资源目录位置，其中包含静态页面，包括图片，样式表，JavaScript和其他静态内容。

@@ -23,8 +23,38 @@
 #### @Autowired
     - 它可以对类成员变量，方法及构造函数进行标注，完成自动装配的工作。通过 @Autowired 的使用来消除set、get方法
 #### @PathVariable
-    - 用于将请求URL中的模板变量映射到功能处理方法的参数上，即取出url模板中的变量作为参数 {id}
+    - 用于将请求URL中的模板变量映射到功能处理方法的参数上，即取出url模板中的变量作为参数 
+    - {xxx}占位 @PathVariable("xxx") 绑定到操作方法入参中
 #### @RequestParam
     - 主要用于在SpringMVC后台控制层获取参数，类似 request.getParameter(String name)
+    - value参数名
+    - required是否必需。如果为true,请求参数中必需包含对应参数，不存在将抛出异常
+    - public String handle(@RequestParam(value="userName",required=false)String userName,@RequestParam(value="age")String age){
+         return "success";
+     }
 #### @RequestHeader
     - 可以把Request请求header部分的值绑定到方法的参数上
+    - public String handle(@RequestHeader("Accept-Encoding")String encoding,@RequestHeader("Keep-Alive")String keepAlive){
+        return "success";
+      }
+#### @CookieValue
+    - 可让处方法入参绑定某个Cookie值
+    - public String handle(@CookieValue("sessionId"，required=false)String sessionId){
+        return "success";
+     }
+####MVC  Handler 方法可以接受哪些 ServletAPI 类型参数
+    - HttpServletRequest, HttpServletResponse, HttpSession
+    - java.security.Principal,Locale, 
+    - InputStream, OutputStream, 
+    - Reader, Writer
+
+
+
+
+
+
+
+
+
+
+
