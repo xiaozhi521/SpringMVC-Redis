@@ -14,9 +14,13 @@
     <title>Hello Spring MVC</title>
 </head>
 <body>
+
+<h2><a href="/login/toLogin.mvc">登录</a></h2>
+<h2><a href="/login/signOut.mvc">退出登录</a></h2>
+
 <h2>${message}</h2>
 <h2>${ee}</h2>
-<h2 onclick="addStudent(1)">增加学生信息(使用配置文件方式)</h2>
+<h2 ><a href="/student.mvc">增加学生信息(使用配置文件方式)</a></h2>
 <button onclick="addStudent(2)">增加学生信息(继承 baseController 类方式)</button>
 
 <button onclick="student()">模拟测试ModelAndView</button>
