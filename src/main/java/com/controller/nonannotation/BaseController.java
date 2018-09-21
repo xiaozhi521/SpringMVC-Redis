@@ -33,6 +33,11 @@ public class BaseController {
         return getRequest().getSession();
     }
 
+    /**
+     *  重定向
+     * @param path
+     * @return
+     */
     protected String redirectPath(String path){
         return new StringBuilder("redirect:").append(path).append(".jsp").toString();
     }
