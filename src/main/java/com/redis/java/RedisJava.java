@@ -32,10 +32,11 @@ public class RedisJava {
      *  redis 性能测试 -- 简单的连接测试
      */
     public static void testRedisPerformance(){
-        Jedis jedis = new Jedis("localhost");
-        jedis.auth("qwertyuiop@123");
+        Jedis jedis = null;
         int i = 0;
         try{
+            new Jedis("localhost");
+            jedis.auth("qwertyuiop@123");
             //开始毫秒数
             long start = System.currentTimeMillis();
             while (true){
@@ -51,7 +52,9 @@ public class RedisJava {
                 jedis.pexpire("test" + i,10000L);
             }
         }finally {
-            jedis.close();
+            if(jedis != null){
+                jedis.close();
+            }
         }
         System.out.println("redis 每秒操作" + i + "次");
     }
