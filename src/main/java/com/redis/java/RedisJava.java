@@ -35,7 +35,7 @@ public class RedisJava {
         Jedis jedis = null;
         int i = 0;
         try{
-            new Jedis("localhost");
+            jedis =  new Jedis("localhost");
             jedis.auth("qwertyuiop@123");
             //开始毫秒数
             long start = System.currentTimeMillis();
