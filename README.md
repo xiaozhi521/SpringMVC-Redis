@@ -43,7 +43,7 @@
     - public String handle(@CookieValue("sessionId"，required=false)String sessionId){
         return "success";
      }
-####MVC  Handler 方法可以接受哪些 ServletAPI 类型参数
+#### MVC  Handler 方法可以接受哪些 ServletAPI 类型参数
     - HttpServletRequest, HttpServletResponse, HttpSession
     - java.security.Principal,Locale, 
     - InputStream, OutputStream, 
