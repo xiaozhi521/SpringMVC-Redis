@@ -3,6 +3,8 @@ package com.controller.file;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -10,6 +12,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.*;
 import java.util.Date;
@@ -33,8 +36,14 @@ public class FileUpload {
         long startTime = System.currentTimeMillis();
         System.out.println("fileName：" + file.getOriginalFilename());
         try {
-            //获取输出流
-            OutputStream os = new FileOutputStream("E:/" + new Date().getTime() + file.getOriginalFilename());
+            //获取输出流WEB-INF
+            String filePath = getFilePath() + "WEB-INF\\fileUpload\\";
+            File dir = new File(filePath);
+            //如果文件夹不存在则创建
+            if(!dir.exists()  && !dir .isDirectory()){
+                dir.mkdirs();
+            }
+            OutputStream os = new FileOutputStream( filePath + file.getOriginalFilename());
             //获取输入流 CommonsMultipartFile 中可以直接得到文件的流
             InputStream is = file.getInputStream();
             int temp;
@@ -148,5 +157,29 @@ public class FileUpload {
         //保存文件
         file.write(path);
         return modelAndView;
+    }
+
+    /**
+     * 返回当前项目的路径
+     * @return
+     */
+    public static String getFilePath(){
+        HttpSession session = getRequest().getSession();
+        return session.getServletContext().getRealPath("/" );
+    }
+    /**
+     * String url = "http://" + getRequest.getServerName() //服务器地址 + ":" +
+     * getRequest.getServerPort() //端口号 +
+     * getRequest.getContextPath() //项目名称 +
+     * getRequest.getServletPath() //请求页面或其他地址 + "?" +
+     * (getRequest.getQueryString()); //参数
+     */
+    public static String getDomainName(){
+        return new StringBuilder("http://").append(getRequest().getServerName()).append(":").append(getRequest().getServerPort()).toString();
+    }
+
+    //获取Request
+    public static HttpServletRequest getRequest(){
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
 }
