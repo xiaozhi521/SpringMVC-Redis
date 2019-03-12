@@ -65,6 +65,25 @@
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
     </mvc:interceptors>
 
+    <!--异常处理-->
+    <bean id="simpleMappingExceptionResolver" class=
+            "org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <map>
+                <entry key="DatabaseException" value="databaseError"/>
+                <entry key="InvalidCreditCardException" value="creditCardError"/>
+            </map>
+        </property>
+
+        <!-- See note below on how this interacts with Spring Boot -->
+        <property name="defaultErrorView" value="error"/>
+        <property name="exceptionAttribute" value="ex"/>
+
+        <!-- Name of logger to use to log exceptions. Unset by default,
+               so logging is disabled unless you set a value. -->
+        <property name="warnLogCategory" value="example.MvcLogger"/>
+    </bean>
+
     <!--<mvc:resource ...../>标记来映射静态页面。映射属性必须是指定http请求的URL模式的Ant模式。
     location属性必须指定一个或多个有效的资源目录位置，其中包含静态页面，包括图片，样式表，JavaScript和其他静态内容。
     可以使用逗号分隔的值列表指定多个资源位置。-->

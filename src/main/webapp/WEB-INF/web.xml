@@ -66,12 +66,12 @@
     <!-- 错误页面转向  -->
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/common/400.html</location>
+        <location>/WEB-INF/common/404.html</location>
     </error-page>
 
     <error-page>
         <error-code>500</error-code>
-        <location>/index.jsp</location>
+        <location>/WEB-INF/common/500.html</location>
     </error-page>
 
 </web-app>

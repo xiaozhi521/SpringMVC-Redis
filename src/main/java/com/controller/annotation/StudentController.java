@@ -1,6 +1,8 @@
 package com.controller.annotation;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bean.Student;
+import com.util.ResultUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,4 +43,15 @@ public class StudentController {
 
         return "/student/result";
     }
+
+    /**
+     *  SpringMVC 404异常
+     * @return
+     */
+    @RequestMapping(value = "/notFoundException.mvc")
+    public String notFoundException() {
+        Student student = new Student();
+        return student.getName();
+    }
+
 }

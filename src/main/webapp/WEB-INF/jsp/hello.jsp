@@ -29,6 +29,10 @@
 <a href="getMap.mvc" target="_blank">JSON数据返回测试</a>
 <h2>SpringMVC 文件上传</h2>
 <a href="/SpringmvcFile/addFile.mvc">文件上传</a>
+<br/>
+<h2>SpringMVC 异常</h2>
+<a href="/notFoundException.mvc">404异常</a>
+<br/>
 
 
 <form:form method="GET" style="display:none;" action="/staticPage.mvc">
